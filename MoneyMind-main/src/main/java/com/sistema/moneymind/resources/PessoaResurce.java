@@ -35,6 +35,7 @@ public class PessoaResurce {
     }
 
 
+
     @GetMapping(value = "/razaoSocial/{razaoSocial}")
     public ResponseEntity<PessoaDTO> findByRazaoSocial(@PathVariable String razaoSocial){
         Pessoa obj = this.pessoaService.findByRazaoSocial(razaoSocial);

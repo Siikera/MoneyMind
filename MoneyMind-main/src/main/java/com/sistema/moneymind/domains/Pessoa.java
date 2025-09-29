@@ -2,8 +2,10 @@ package com.sistema.moneymind.domains;
 
 import com.sistema.moneymind.domains.dtos.PessoaDTO;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Objects;
 
@@ -20,19 +22,24 @@ public class Pessoa {
     @Column(unique = true)
     private String razaoSocial;
 
+
+
     public Pessoa() {
     }
 
     public Pessoa(Long idPessoa, String razaoSocial) {
         this.idPessoa = idPessoa;
         this.razaoSocial = razaoSocial;
+
     }
 
 
     public Pessoa(PessoaDTO dto){
         this.idPessoa = dto.getIdPessoa();
         this.razaoSocial = dto.getRazaoSocial();
+
     }
+
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -49,6 +56,8 @@ public class Pessoa {
     public void setRazaoSocial(@NotBlank @NotNull String razaoSocial) {
         this.razaoSocial = razaoSocial;
     }
+
+
 
     @Override
     public boolean equals(Object o) {

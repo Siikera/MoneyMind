@@ -9,6 +9,9 @@
         <module name="moneymind" />
       </profile>
     </annotationProcessing>
+    <bytecodeTargetLevel>
+      <module name="moneymind" target="17" />
+    </bytecodeTargetLevel>
   </component>
   <component name="JavacSettings">
     <option name="ADDITIONAL_OPTIONS_OVERRIDE">

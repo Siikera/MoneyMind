@@ -1,0 +1,18 @@
+<div class="side-menu" [class.collapsed]="collapsed">
+  <button class="collapse-btn" (click)="toggleMenu()">
+    <span *ngIf="!collapsed">&laquo;</span>
+    <span *ngIf="collapsed">&raquo;</span>
+  </button>
+  <div *ngIf="!collapsed">
+    <h3>Menu</h3>
+    <ul>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="/" routerLinkActive="active">Inicio</a></li>
+      <li><a routerLink="/contas" routerLinkActive="active">Contas</a></li>
+      <li><a routerLink="/bancos" routerLinkActive="active">Bancos</a></li>
+      <li><a routerLink="/usuarios" routerLinkActive="active">Usuários</a></li>
+      <li><a href="#" (click)="logout()">Sair</a></li>
+    </ul>
+  </div>
+   
+</div>

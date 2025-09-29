@@ -190,4 +190,12 @@ public class FluxoFinanceiro {
     public int hashCode() {
         return Objects.hash(idOperacao);
     }
+
+
+
+
+
+
+
+
 }

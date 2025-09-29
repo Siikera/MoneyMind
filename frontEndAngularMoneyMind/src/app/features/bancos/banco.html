@@ -2,6 +2,7 @@
   <form class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 flex flex-col gap-6 border-t-4 border-[#1DE782]" (ngSubmit)="onSubmit()" autocomplete="off">
     <h1 class="text-3xl font-extrabold text-[#10182B] text-center mb-1">Crie sua conta</h1>
     <p class="text-neutral-600 text-center mb-4">Dê o primeiro passo para transformar sua vida financeira com o Money Mind.</p>
+    <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="text" placeholder="Nome completo" [(ngModel)]="nomeUsuario" name="nomeUsuario" required>
     <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="email" placeholder="E-mail" [(ngModel)]="emailUsuario" name="emailUsuario" required>
     <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="date" placeholder="Data de nascimento" [(ngModel)]="dataNascimento" name="dataNascimento" required>
     <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="password" placeholder="Senha" [(ngModel)]="senhaUsuario" name="senhaUsuario" required>

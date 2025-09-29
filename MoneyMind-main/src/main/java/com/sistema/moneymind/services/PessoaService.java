@@ -36,6 +36,7 @@ public class PessoaService {
         return obj.orElseThrow(() -> new ObjectNotFoundException(" Razão Social não encontrado! Razão Social: " + razaoSocial));
     }
 
+
     public Pessoa create(PessoaDTO dto){
         dto.setIdPessoa(null);
         validaPessoa(dto);

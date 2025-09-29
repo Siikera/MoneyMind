@@ -38,14 +38,10 @@ export class Dashboard implements OnInit, OnDestroy {
     private router: Router
   ) {}
   onShowUser() {
-    this.showUser = !this.showUser; // <-- Esta linha inverte o valor de showUser
+    this.showUser = !this.showUser; 
     this.editMode = false;
     this.editError = "";
-    // A função loadUser() deve ser chamada apenas se você for mostrar os dados
-    // ou se precisar recarregar os dados a cada vez que o painel for aberto.
-    // Se os dados já estiverem carregados e você só quer alternar a visibilidade,
-    // pode ser melhor chamar loadUser() apenas quando showUser for true.
-    if (this.showUser) {
+   if (this.showUser) {
       this.loadUser();
     }
   }
@@ -70,7 +66,6 @@ export class Dashboard implements OnInit, OnDestroy {
       this.editError = 'Informe sua senha para confirmar a alteração.';
       return;
     }
-    // Converter dataNascimento para dd/MM/yyyy se vier no formato yyyy-MM-dd
     let dataFormatada = this.editUsuario.dataNascimento;
     if (dataFormatada && dataFormatada.match(/^\d{4}-\d{2}-\d{2}$/)) {
       const [yyyy, mm, dd] = dataFormatada.split('-');

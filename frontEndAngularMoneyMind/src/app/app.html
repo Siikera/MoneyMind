@@ -5,3 +5,5 @@
     <router-outlet></router-outlet>
   </main>
 </div>
+<!-- Menu lateral à direita, visível apenas para usuários logados -->
+<app-side-menu *ngIf="isLoggedIn()"></app-side-menu>

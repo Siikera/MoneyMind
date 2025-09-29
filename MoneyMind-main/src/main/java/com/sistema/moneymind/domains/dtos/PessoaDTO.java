@@ -4,6 +4,7 @@ package com.sistema.moneymind.domains.dtos;
 import com.sistema.moneymind.domains.Pessoa;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.hibernate.validator.constraints.br.CPF;
 
 import java.util.Objects;
 
@@ -15,6 +16,9 @@ public class PessoaDTO {
     @NotBlank(message = "O campo razaoSocial não pode estar vazio")
     private String razaoSocial;
 
+
+
+
     public PessoaDTO() {
     }
 
@@ -22,7 +26,6 @@ public class PessoaDTO {
         this.idPessoa = pessoa.getIdPessoa();
         this.razaoSocial = pessoa.getRazaoSocial();
     }
-
 
     public Long getIdPessoa() {
         return idPessoa;
@@ -39,6 +42,7 @@ public class PessoaDTO {
     public void setRazaoSocial(@NotNull(message = "O campo razaoSocial não pode ser nulo") @NotBlank(message = "O campo razaoSocial não pode estar vazio") String razaoSocial) {
         this.razaoSocial = razaoSocial;
     }
+
 
     @Override
     public boolean equals(Object o) {

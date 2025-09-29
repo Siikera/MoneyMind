@@ -21,6 +21,10 @@ export class Login {
 
   onSubmit() {
     this.error = '';
+    if (!this.login.includes('@')) {
+    this.error = 'Digite um e-mail válido.';
+    return;
+  }
     this.loading = true;
     this.auth.login(this.login, this.password).subscribe({
       next: () => {
