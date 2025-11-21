@@ -45,3 +45,14 @@
     display: none;
   }
 }
+
+/* Navbar fixa no topo */
+.navbar-fixed {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 75px; /* referência para alinhamento do side-menu */
+  z-index: 1000;
+  box-sizing: border-box;
+}

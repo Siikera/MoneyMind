@@ -7,6 +7,7 @@ import jakarta.persistence.Column;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Size;
 
 import java.time.LocalDate;
 import java.util.Objects;
@@ -26,6 +27,7 @@ public class UsuarioDTO {
 
     @NotBlank(message = "O campo senha não pode ser vazio")
     @NotNull(message = "O campo senha não pode ser nulo")
+    @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres")
     private String senhaUsuario;
 
     @JsonFormat(pattern = "dd/MM/yyyy")
@@ -66,11 +68,11 @@ public class UsuarioDTO {
         this.emailUsuario = emailUsuario;
     }
 
-    public @NotBlank(message = "O campo senha não pode ser vazio") @NotNull(message = "O campo senha não pode ser nulo") String getSenhaUsuario() {
+    public @NotBlank(message = "O campo senha não pode ser vazio") @NotNull(message = "O campo senha não pode ser nulo") @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres") String getSenhaUsuario() {
         return senhaUsuario;
     }
 
-    public void setSenhaUsuario(@NotBlank(message = "O campo senha não pode ser vazio") @NotNull(message = "O campo senha não pode ser nulo") String senhaUsuario) {
+    public void setSenhaUsuario(@NotBlank(message = "O campo senha não pode ser vazio") @NotNull(message = "O campo senha não pode ser nulo") @Size(min = 8, message = "A senha deve ter pelo menos 8 caracteres") String senhaUsuario) {
         this.senhaUsuario = senhaUsuario;
     }
 

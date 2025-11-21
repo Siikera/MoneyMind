@@ -1,0 +1,93 @@
+<div class="cadastro-container">
+  <h2>Cadastro de Meta Financeira</h2>
+  <form (ngSubmit)="onSubmit()" autocomplete="off" class="cadastro-form">
+    <input type="hidden" name="idcontahidden" [(ngModel)]="idConta" />
+    <label for="descricaoMeta">Descrição da Meta:</label>
+    <input id="descricaoMeta" name="descricaoMeta" [(ngModel)]="descricaoMeta" required />
+
+    <label for="prazo">Prazo:</label>
+    <input id="prazo" name="prazo" [(ngModel)]="prazo" required />
+
+    <label for="valor">Valor:</label>
+    <input id="valor" name="valor" type="number" [(ngModel)]="valor" required />
+
+    <button type="submit" [disabled]="loading">Cadastrar</button>
+
+    <div *ngIf="error" class="erro">{{ error }}</div>
+    <div *ngIf="success" class="sucesso">Cadastro concluído!</div>
+  </form>
+
+  <div class="tabela-wrapper">
+    <h3>Tabela de Metas Financeiras Cadastradas</h3>
+    <table class="razoes-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Descrição</th>
+          <th>Prazo</th>
+          <th>Valor</th>
+          <th>Status</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let meta of metas">
+          <tr>
+            <td>{{ meta.idMeta }}</td>
+            <td>
+              <ng-container *ngIf="metaEditando?.idMeta === meta.idMeta && meta.statusMeta !== 2; else viewDescricao">
+                <input [(ngModel)]="descricaoMeta" />
+              </ng-container>
+              <ng-template #viewDescricao>
+                {{ meta.descricaoMeta }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="metaEditando?.idMeta === meta.idMeta && meta.statusMeta !== 2; else viewPrazo">
+                <input [(ngModel)]="prazo" />
+              </ng-container>
+              <ng-template #viewPrazo>
+                {{ meta.prazo }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="metaEditando?.idMeta === meta.idMeta && meta.statusMeta !== 2; else viewValor">
+                <input type="number" [(ngModel)]="valor" />
+              </ng-container>
+              <ng-template #viewValor>
+                {{ meta.valor | currency:'BRL' }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="metaEditando?.idMeta === meta.idMeta && meta.statusMeta !== 2; else viewStatus">
+                <select [(ngModel)]="statusMeta">
+                  <option [ngValue]="1">1 - Em andamento</option>
+                  <option [ngValue]="2">2 - Meta concluída</option>
+                </select>
+              </ng-container>
+              <ng-template #viewStatus>
+                {{ meta.statusMeta === 1 ? 'Em andamento' : 'Meta concluída' }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="metaEditando?.idMeta === meta.idMeta && meta.statusMeta !== 2; else actionBtns">
+                <button type="button" (click)="salvarAlteracao(meta)" class="acao-btn editar">Salvar</button>
+                <button type="button" (click)="cancelarEdicao()" class="acao-btn excluir">Cancelar</button>
+              </ng-container>
+              <ng-template #actionBtns>
+                <button *ngIf="meta.statusMeta !== 2" type="button" (click)="editarMetaFinanceira(meta)" class="acao-btn editar">Alterar</button>
+                <button type="button" (click)="excluirMetaFinanceira(meta.idMeta ?? 0)" class="acao-btn excluir">Excluir</button>
+                <button *ngIf="meta.statusMeta !== 2" type="button" (click)="finalizarMetaFinanceira(meta.idMeta ?? 0)" class="acao-btn finalizar">Finalizar</button>
+                <span *ngIf="meta.statusMeta === 2" class="meta-concluida">Concluída</span>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="metas.length === 0">
+          <td colspan="6" class="empty-list">Nenhuma meta financeira cadastrada.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="metas.length === 0" class="empty-list">Nenhuma meta financeira cadastrada.</div>
+  </div>
+</div>

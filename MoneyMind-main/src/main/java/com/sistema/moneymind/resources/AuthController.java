@@ -29,13 +29,18 @@ public class AuthController {
     @PostMapping("/login")
     public ResponseEntity<?> login(@RequestBody CredenciaisDTO credenciais){
         try {
-            Authentication authentication = authenticationManager.authenticate(
+            authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(credenciais.getEmail(), credenciais.getPassword())
             );
             String token = jwtUtils.generateToken(credenciais.getEmail());
-            return  ResponseEntity.ok(new TokenDTO(token));
+            return ResponseEntity.ok(new TokenDTO(token));
         } catch (AuthenticationException e){
-            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("Credenciais invalidas!");
+            // Retorna JSON padronizado para facilitar tratamento no frontend
+            return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(
+                    java.util.Map.of(
+                            "status", 401,
+                            "message", "Credenciais inválidas. Verifique email e senha.")
+            );
         }
     }
 }

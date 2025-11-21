@@ -44,10 +44,6 @@ public class Conta {
     @JoinColumn(name = "idbanco")
     private Banco banco;
 
-    @ManyToOne
-    @JoinColumn(name = "idmetafinanceira")
-    private MetaFinanceira metaFinanceira;
-
 
     public Conta() {
 
@@ -55,7 +51,7 @@ public class Conta {
 
     }
 
-    public Conta(Long idConta, String descricao, TipoConta tipoConta, String agencia, String numero, Double saldo, Double limite, Usuario usuario, Banco banco, MetaFinanceira metaFinanceira) {
+    public Conta(Long idConta, String descricao, TipoConta tipoConta, String agencia, String numero, Double saldo, Double limite, Usuario usuario, Banco banco) {
         this.idConta = idConta;
         this.descricao = descricao;
         this.tipoConta = tipoConta;
@@ -65,7 +61,6 @@ public class Conta {
         this.limite = limite;
         this.usuario = usuario;
         this.banco = banco;
-        this.metaFinanceira = metaFinanceira;
     }
 
 
@@ -86,11 +81,6 @@ public class Conta {
 
         this.banco = new Banco();
         this.banco.setIdBanco(dto.getBanco());
-
-        this.metaFinanceira = new MetaFinanceira();
-        this.metaFinanceira.setIdMeta(dto.getMetaFinanceira());
-
-
 
     }
 
@@ -167,24 +157,16 @@ public class Conta {
         this.banco = banco;
     }
 
-    public MetaFinanceira getMetaFinanceira() {
-        return metaFinanceira;
-    }
-
-    public void setMetaFinanceira(MetaFinanceira metaFinanceira) {
-        this.metaFinanceira = metaFinanceira;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Conta conta = (Conta) o;
-        return Objects.equals(idConta, conta.idConta) && Objects.equals(descricao, conta.descricao) && tipoConta == conta.tipoConta && Objects.equals(agencia, conta.agencia) && Objects.equals(numero, conta.numero) && Objects.equals(saldo, conta.saldo) && Objects.equals(limite, conta.limite) && Objects.equals(usuario, conta.usuario) && Objects.equals(banco, conta.banco) && Objects.equals(metaFinanceira, conta.metaFinanceira);
+        return Objects.equals(idConta, conta.idConta) && Objects.equals(descricao, conta.descricao) && tipoConta == conta.tipoConta && Objects.equals(agencia, conta.agencia) && Objects.equals(numero, conta.numero) && Objects.equals(saldo, conta.saldo) && Objects.equals(limite, conta.limite) && Objects.equals(usuario, conta.usuario) && Objects.equals(banco, conta.banco);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(idConta, descricao, tipoConta, agencia, numero, saldo, limite, usuario, banco, metaFinanceira);
+        return Objects.hash(idConta, descricao, tipoConta, agencia, numero, saldo, limite, usuario, banco);
     }
 }

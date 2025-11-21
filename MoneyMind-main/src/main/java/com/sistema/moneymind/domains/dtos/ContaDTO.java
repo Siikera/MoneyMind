@@ -36,8 +36,6 @@ public class ContaDTO {
     @NotNull(message = "O campo banco é requirido")
     private Long Banco;
 
-    @NotNull(message = "O campo metaFinanceira é requirido")
-    private Long MetaFinanceira;
 
     public ContaDTO() {
     }
@@ -53,7 +51,6 @@ public class ContaDTO {
 
         Usuario = conta.getUsuario().getIdUsuario();
         Banco = conta.getBanco().getIdBanco();
-        MetaFinanceira = conta.getMetaFinanceira().getIdMeta();
     }
 
     public Long getIdConta() {
@@ -126,13 +123,5 @@ public class ContaDTO {
 
     public void setBanco(@NotNull(message = "O campo banco é requirido") Long banco) {
         Banco = banco;
-    }
-
-    public @NotNull(message = "O campo metaFinanceira é requirido") Long getMetaFinanceira() {
-        return MetaFinanceira;
-    }
-
-    public void setMetaFinanceira(@NotNull(message = "O campo metaFinanceira é requirido") Long metaFinanceira) {
-        MetaFinanceira = metaFinanceira;
     }
 }

@@ -1,0 +1,76 @@
+<div class="selection-container">
+  <h2>Escolha a conta para usar</h2>
+
+  <div *ngIf="loading" class="loading">Carregando contas...</div>
+
+  <div *ngIf="!loading && contas.length === 0" class="empty">Você ainda não possui contas. Crie uma abaixo.</div>
+
+  <section *ngIf="!loading">
+    <div class="cards-grid" *ngIf="contas.length > 0">
+      <div class="card" *ngFor="let c of contas">
+        <div class="card-content">
+          <h4 class="card-title">{{ c.descricao || ('Conta ' + (c.idConta ?? c.id)) }}</h4>
+          <div class="card-meta">Agência: {{ c.agencia }} &nbsp;|&nbsp; Nº: {{ c.numero }}</div>
+          <div class="card-saldo">Saldo: R$ {{ c.saldo | number:'1.2-2' }}</div>
+        </div>
+        <div class="card-actions">
+          <button class="select-btn" (click)="selecionarConta(c.idConta ?? c.id)">Selecionar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Formulário em retângulo abaixo das contas cadastradas -->
+    <div class="create-rect">
+      <h3>Criar nova conta</h3>
+      <div class="create-grid">
+        <div class="form-row">
+          <label>Descrição *</label>
+          <input [(ngModel)]="descricao" placeholder="Ex: Conta Pessoal" />
+        </div>
+        
+        <div class="form-row">
+          <label>Tipo de Conta *</label>
+          <select [(ngModel)]="tipoConta">
+            <option *ngFor="let tipo of tiposContaOpcoes" [value]="tipo.id">
+              {{ tipo.descricao }}
+            </option>
+          </select>
+        </div>
+        
+        <div class="form-row">
+          <label>Banco *</label>
+          <select [(ngModel)]="bancoId">
+            <option [value]="null" disabled selected>Selecione um banco</option>
+            <option *ngFor="let banco of bancos" [value]="banco.idBanco">
+              {{ banco.razaoSocial }}
+            </option>
+          </select>
+        </div>
+        
+        <div class="form-row">
+          <label>Agência *</label>
+          <input [(ngModel)]="agencia" placeholder="Ex: 1234" />
+        </div>
+        
+        <div class="form-row">
+          <label>Número *</label>
+          <input [(ngModel)]="numero" placeholder="Ex: 12345-6" />
+        </div>
+        
+        <div class="form-row">
+          <label>Saldo Inicial *</label>
+          <input type="number" [(ngModel)]="saldo" placeholder="0.00" step="0.01" />
+        </div>
+        
+        <div class="form-row">
+          <label>Limite *</label>
+          <input type="number" [(ngModel)]="limite" placeholder="0.00" step="0.01" />
+        </div>
+      </div>
+      <div class="actions">
+        <button class="primary" (click)="criarConta()">Criar conta</button>
+      </div>
+      <div class="erro" *ngIf="error">{{ error }}</div>
+    </div>
+  </section>
+</div>

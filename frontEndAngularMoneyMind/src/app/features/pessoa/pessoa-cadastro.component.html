@@ -1,0 +1,54 @@
+<div class="cadastro-container">
+  <h2>Cadastro de Pessoa</h2>
+  <form (ngSubmit)="onSubmit()" autocomplete="off" class="cadastro-form">
+    <label for="razaoSocial">Razão Social:</label>
+    <input #razaoInput id="razaoSocial" name="razaoSocial" [(ngModel)]="razaoSocial" required />
+    <button type="submit" [disabled]="loading">{{ pessoaEditando ? 'Salvar Alteração' : 'Cadastrar' }}</button>
+    <div *ngIf="error" class="erro">{{ error }}</div>
+    <div *ngIf="success" class="success-message">
+      {{ pessoaEditando ? 'Alteração concluída!' : 'Cadastro concluído!' }}
+    </div>
+  </form>
+
+  <div class="tabela-wrapper">
+    <h3>Tabela de Pessoas Cadastradas</h3>
+    <table class="razoes-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Razão Social</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let pessoa of pessoas">
+          <tr>
+            <td>{{ pessoa.idPessoa }}</td>
+            <td>
+              <ng-container *ngIf="pessoaEditando?.idPessoa === pessoa.idPessoa; else viewMode">
+                <input [(ngModel)]="razaoSocial" class="edit-input" />
+              </ng-container>
+              <ng-template #viewMode>
+                {{ pessoa.razaoSocial }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="pessoaEditando?.idPessoa === pessoa.idPessoa; else actionBtns">
+                <button type="button" (click)="salvarAlteracao(pessoa)" class="acao-btn editar">Salvar</button>
+                <button type="button" (click)="cancelarEdicao()" class="acao-btn excluir">Cancelar</button>
+              </ng-container>
+              <ng-template #actionBtns>
+                <button type="button" (click)="editarPessoa(pessoa)" class="acao-btn editar">Alterar</button>
+                <button type="button" (click)="excluirPessoa(pessoa.idPessoa ?? 0)" class="acao-btn excluir">Excluir</button>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="pessoas.length === 0">
+          <td colspan="3" class="empty-list">Nenhuma pessoa cadastrada.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="pessoas.length === 0" class="empty-list">Nenhuma pessoa cadastrada.</div>
+  </div>
+</div>

@@ -25,6 +25,11 @@ public class MetaFinanceiraResource {
         return ResponseEntity.ok().body(metaFinanceiraService.findAll());
     }
 
+    @GetMapping(value = "/conta/{idConta}")
+    public ResponseEntity<List<MetaFinanceiraDTO>> findByConta(@PathVariable Long idConta){
+        return ResponseEntity.ok().body(metaFinanceiraService.findByConta(idConta));
+    }
+
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<MetaFinanceiraDTO> findById(@PathVariable Long id){
@@ -50,6 +55,16 @@ public class MetaFinanceiraResource {
     public ResponseEntity<MetaFinanceiraDTO> update(@PathVariable Long id, @Valid @RequestBody MetaFinanceiraDTO objDto){
         MetaFinanceira Obj = metaFinanceiraService.update(id, objDto);
         return  ResponseEntity.ok().body(new MetaFinanceiraDTO(Obj));
+    }
+
+    @PatchMapping(value = "/{id}/status")
+    public ResponseEntity<MetaFinanceiraDTO> updateStatus(@PathVariable Long id, @RequestBody java.util.Map<String, Integer> body){
+        Integer novoStatus = body.get("statusMeta");
+        if (novoStatus == null) {
+            return ResponseEntity.badRequest().build();
+        }
+        MetaFinanceira obj = metaFinanceiraService.updateStatus(id, novoStatus);
+        return ResponseEntity.ok().body(new MetaFinanceiraDTO(obj));
     }
 
     @DeleteMapping(value = "/{id}")

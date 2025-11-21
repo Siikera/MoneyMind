@@ -1,65 +1,68 @@
 .side-menu {
-  position: absolute;
-  top: 75px; /* altura aproximada da navbar, ajuste conforme necessário */
+  position: fixed;
+  top: 75px; /* mesma altura da navbar */
   left: 0;
-  width: 220px;
-  max-width: 30vw;
-  min-width: 80px;
-  height: 100vh;
+  width: 240px; /* largura uniforme */
+  height: calc(100vh - 75px); /* altura exata da tela útil */
   background: #10182B;
   box-shadow: 2px 0 8px rgba(0,0,0,0.1);
   z-index: 10;
-  padding: 24px 16px;
+  padding: 16px 12px;
   transition: width 0.3s, padding 0.3s;
   display: flex;
   flex-direction: column;
-  align-items: flex-start;
+  align-items: stretch;
+  overflow-y: auto;
+  box-sizing: border-box;
 }
 
-@media (max-width: 900px) {
-  .side-menu {
-    width: 140px;
-    max-width: 40vw;
-    padding: 16px 8px;
-  }
-}
-
-@media (max-width: 600px) {
-  .side-menu {
-    width: 80px;
-    max-width: 60vw;
-    padding: 8px 4px;
-  }
-}
 .side-menu.collapsed {
-  width: 40px;
-  padding: 24px 4px;
+  width: 56px; /* colapsado uniforme */
+  padding: 16px 6px;
 }
+
 .collapse-btn {
   background: none;
   border: none;
   font-size: 1rem;
   cursor: pointer;
   margin-bottom: 16px;
-  color:#1DE782;;
+  color: #1DE782;
   align-self: flex-end;
 }
+
 .side-menu h3 {
-  margin-top: 0;
+  margin: 0 0 12px;
+  color: #E5E7EB;
+  font-weight: 600;
 }
+
 .side-menu ul {
   list-style: none;
   padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px; /* espaçamento uniforme entre itens */
 }
+
 .side-menu li {
-  margin: 16px 0;
+  margin: 0; /* removido para usar gap do UL */
 }
+
 .side-menu a {
+  display: block;
   text-decoration: none;
-  color:#1DE782;
+  color: #1DE782;
   font-weight: 500;
+  padding: 10px 12px; /* altura/tamanho uniforme do item */
+  border-radius: 8px;
+  transition: background-color 0.2s ease, color 0.2s ease;
 }
-.side-menu a:hover {
-  color: #007bff;
+
+.side-menu a:hover,
+.side-menu a.active {
+  background: rgba(29, 231, 130, 0.12);
+  color: #1DE782;
 }
 

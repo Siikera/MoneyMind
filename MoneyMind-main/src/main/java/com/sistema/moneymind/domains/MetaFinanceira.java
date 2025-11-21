@@ -7,6 +7,7 @@ import com.sistema.moneymind.domains.enums.StatusMeta;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
+import org.springframework.data.jpa.repository.Meta;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,26 +30,24 @@ public class MetaFinanceira {
     @NotNull
     private Double valor;
 
-    @Enumerated(EnumType.ORDINAL)
-    @JoinColumn(name = "metafinanceira")
-    private StatusMeta statusMeta;
+    @Column(name = "status_meta")
+    private int statusMeta;
 
-    @JsonIgnore
-    @OneToMany(mappedBy = "metaFinanceira")
-    private List<Conta> contas = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(name = "idconta")
+    private Conta conta;
 
-    public MetaFinanceira() {
-
-        this.statusMeta = StatusMeta.EMANDAMENTO;
+    public MetaFinanceira(){
 
     }
 
-    public MetaFinanceira(Long idMeta, String descricaoMeta, String prazo, Double valor, StatusMeta statusMeta) {
+    public MetaFinanceira(Long idMeta, String descricaoMeta, String prazo, Double valor, Integer statusMeta, Conta conta) {
         this.idMeta = idMeta;
         this.descricaoMeta = descricaoMeta;
         this.prazo = prazo;
         this.valor = valor;
         this.statusMeta = statusMeta;
+        this.conta = conta;
     }
 
     public MetaFinanceira(MetaFinanceiraDTO dto){
@@ -56,7 +55,9 @@ public class MetaFinanceira {
         this.descricaoMeta = dto.getDescricaoMeta();
         this.prazo = dto.getPrazo();
         this.valor = dto.getValor();
-        this.statusMeta = StatusMeta.toEnum(dto.getStatusMeta());
+        this.statusMeta = dto.getStatusMeta();
+        this.conta = new Conta();
+        this.conta.setIdConta(dto.getConta());
     }
 
     public Long getIdMeta() {
@@ -91,20 +92,31 @@ public class MetaFinanceira {
         this.valor = valor;
     }
 
+    // Getter que retorna o enum para uso no domínio
     public StatusMeta getStatusMeta() {
-        return statusMeta;
+        return StatusMeta.toEnum(this.statusMeta);
     }
 
+    // Setter que aceita o enum e grava o código
     public void setStatusMeta(StatusMeta statusMeta) {
-        this.statusMeta = statusMeta;
+        this.statusMeta = (statusMeta == null) ? null : statusMeta.getId();
     }
 
-    public List<Conta> getContas() {
-        return contas;
+    // Getter/Setter direto do código (usado por DTOs / serialização)
+    public Integer getStatusMetaCode() {
+        return this.statusMeta;
     }
 
-    public void setContas(List<Conta> contas) {
-        this.contas = contas;
+    public void setStatusMetaCode(Integer statusMetaCode) {
+        this.statusMeta = statusMetaCode;
+    }
+
+    public Conta getConta() {
+        return conta;
+    }
+
+    public void setConta(Conta conta) {
+        this.conta = conta;
     }
 
     @Override

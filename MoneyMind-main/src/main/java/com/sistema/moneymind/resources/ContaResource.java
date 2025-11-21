@@ -1,6 +1,5 @@
 package com.sistema.moneymind.resources;
 
-
 import com.sistema.moneymind.domains.Conta;
 import com.sistema.moneymind.domains.dtos.ContaDTO;
 import com.sistema.moneymind.services.ContaService;
@@ -17,11 +16,8 @@ import java.util.List;
 @RequestMapping(value = "/conta")
 public class ContaResource {
 
-
     @Autowired
     private ContaService contaService;
-
-
 
     @GetMapping
     public ResponseEntity<List<ContaDTO>> findAll(){
@@ -60,4 +56,15 @@ public class ContaResource {
     }
 
 
+    @GetMapping(value = "/usuario/{id}")
+    public ResponseEntity<List<ContaDTO>> findByUsuario(@PathVariable Long id) {
+        List<ContaDTO> list = contaService.findByUsuario(id);
+        return ResponseEntity.ok().body(list);
+    }
+
+    @PatchMapping(value = "/{id}/saldo")
+    public ResponseEntity<ContaDTO> updateSaldo(@PathVariable Long id, @RequestBody Double novoSaldo) {
+        Conta conta = contaService.updateSaldo(id, novoSaldo);
+        return ResponseEntity.ok().body(new ContaDTO(conta));
+    }
 }

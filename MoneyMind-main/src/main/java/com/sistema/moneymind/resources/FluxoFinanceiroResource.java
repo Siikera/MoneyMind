@@ -25,6 +25,11 @@ public class FluxoFinanceiroResource {
         return ResponseEntity.ok().body(fluxoService.findAll());
     }
 
+    @GetMapping(value = "/conta/{idConta}")
+    public ResponseEntity<List<FluxoFinanceiroDTO>> findByConta(@PathVariable Long idConta) {
+        return ResponseEntity.ok().body(fluxoService.findByConta(idConta));
+    }
+
     @GetMapping(value = "/{id}")
     public ResponseEntity<FluxoFinanceiroDTO> findById(@PathVariable Long id) {
         FluxoFinanceiro obj = this.fluxoService.findById(id);

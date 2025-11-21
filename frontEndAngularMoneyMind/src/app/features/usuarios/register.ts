@@ -29,6 +29,25 @@ export class Register {
   onSubmit() {
     this.error = '';
     this.success = false;
+
+    // Validações de frontend
+    if (!this.nomeUsuario || !this.nomeUsuario.trim()) {
+      this.error = 'Informe o nome.';
+      return;
+    }
+    if (!this.emailUsuario || !this.emailUsuario.includes('@')) {
+      this.error = 'Informe um e-mail válido.';
+      return;
+    }
+    if (!this.dataNascimento) {
+      this.error = 'Informe a data de nascimento.';
+      return;
+    }
+    if (!this.senhaUsuario || this.senhaUsuario.length < 8) {
+      this.error = 'A senha deve ter pelo menos 8 caracteres.';
+      return;
+    }
+
     this.loading = true;
     // Converter dataNascimento para dd/MM/yyyy
     let dataFormatada = '';
@@ -51,7 +70,14 @@ export class Register {
       error: (err) => {
         this.loading = false;
         if (err?.error && typeof err.error === 'string') {
+          // Respostas de texto simples
           this.error = err.error;
+        } else if (err?.error?.message) {
+          // Erros de regra de negócio (ex.: e-mail já cadastrado)
+          this.error = err.error.message;
+        } else if (Array.isArray(err?.error?.errors) && err.error.errors.length > 0) {
+          // Erros de validação de campos do backend (ValidationError)
+          this.error = err.error.errors[0].menssage || 'Verifique os dados informados.';
         } else if (err?.status === 0) {
           this.error = 'Não foi possível conectar ao servidor.';
         } else {

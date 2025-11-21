@@ -1,14 +1,54 @@
-<main class="min-h-screen flex flex-col items-center justify-center bg-neutral-100 p-6">
-  <form class="w-full max-w-md bg-white rounded-3xl shadow-2xl p-8 flex flex-col gap-6 border-t-4 border-[#1DE782]" (ngSubmit)="onSubmit()" autocomplete="off">
-    <h1 class="text-3xl font-extrabold text-[#10182B] text-center mb-1">Crie sua conta</h1>
-    <p class="text-neutral-600 text-center mb-4">Dê o primeiro passo para transformar sua vida financeira com o Money Mind.</p>
-    <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="text" placeholder="Nome completo" [(ngModel)]="nomeUsuario" name="nomeUsuario" required>
-    <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="email" placeholder="E-mail" [(ngModel)]="emailUsuario" name="emailUsuario" required>
-    <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="date" placeholder="Data de nascimento" [(ngModel)]="dataNascimento" name="dataNascimento" required>
-    <input class="border border-[#1DE782] rounded-lg p-3 focus:ring-2 focus:ring-[#1DE782] outline-none transition" type="password" placeholder="Senha" [(ngModel)]="senhaUsuario" name="senhaUsuario" required>
-    <button class="w-full bg-[#1DE782] text-[#10182B] py-3 rounded-xl font-bold text-lg shadow hover:bg-[#13b86a] hover:text-white transition" type="submit" [disabled]="loading">{{ loading ? 'Registrando...' : 'Criar conta' }}</button>
-    <button class="w-full bg-white text-[#1DE782] border border-[#1DE782] py-3 rounded-xl font-bold text-lg shadow hover:bg-[#1DE782]/10 hover:text-[#10182B] transition" type="button" (click)="router.navigate(['/login'])">Já tenho uma conta</button>
-    <div *ngIf="error" class="text-[#e11d48] text-center">{{ error }}</div>
-    <div *ngIf="success" class="text-[#1DE782] text-center">Cadastro realizado com sucesso! Redirecionando...</div>
+<div class="cadastro-container">
+  <h2>Cadastro de Bancos</h2>
+  <form (ngSubmit)="onSubmit()" autocomplete="off" class="cadastro-form">
+    <label for="razaoSocial">Razão Social:</label>
+    <input #razaoInput id="razaoSocial" name="razaoSocial" [(ngModel)]="razaoSocial" required />
+    <button type="submit" [disabled]="loading">{{ bancoEditando ? 'Salvar Alteração' : 'Cadastrar' }}</button>
+    <div *ngIf="error" class="erro">{{ error }}</div>
+    <div *ngIf="success" class="success-message">
+      {{ bancoEditando ? 'Alteração concluída!' : 'Cadastro concluído!' }}
+    </div>
   </form>
-</main>
+
+  <div class="tabela-wrapper">
+    <h3>Tabela de Bancos Cadastrados</h3>
+    <table class="razoes-table">
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Razão Social</th>
+          <th>Ações</th>
+        </tr>
+      </thead>
+      <tbody>
+        <ng-container *ngFor="let banco of bancos">
+          <tr>
+            <td>{{ banco.idBanco }}</td>
+            <td>
+              <ng-container *ngIf="bancoEditando?.idBanco === banco.idBanco; else viewMode">
+                <input [(ngModel)]="razaoSocial" class="edit-input" />
+              </ng-container>
+              <ng-template #viewMode>
+                {{ banco.razaoSocial }}
+              </ng-template>
+            </td>
+            <td>
+              <ng-container *ngIf="bancoEditando?.idBanco === banco.idBanco; else actionBtns">
+                <button type="button" (click)="salvarAlteracao(banco)" class="acao-btn editar">Salvar</button>
+                <button type="button" (click)="cancelarEdicao()" class="acao-btn excluir">Cancelar</button>
+              </ng-container>
+              <ng-template #actionBtns>
+                <button type="button" (click)="editarBanco(banco)" class="acao-btn editar">Alterar</button>
+                <button type="button" (click)="excluirBanco(banco.idBanco ?? 0)" class="acao-btn excluir">Excluir</button>
+              </ng-template>
+            </td>
+          </tr>
+        </ng-container>
+        <tr *ngIf="bancos.length === 0">
+          <td colspan="3" class="empty-list">Nenhum banco cadastrado.</td>
+        </tr>
+      </tbody>
+    </table>
+    <div *ngIf="bancos.length === 0" class="empty-list">Nenhum banco cadastrado.</div>
+  </div>
+</div>

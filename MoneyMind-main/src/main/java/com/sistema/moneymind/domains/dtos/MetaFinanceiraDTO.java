@@ -31,6 +31,9 @@ public class MetaFinanceiraDTO {
 
     private int statusMeta;
 
+    @NotNull(message = "O campo conta é requirido")
+    private Long conta;
+
 
     public MetaFinanceiraDTO() {
     }
@@ -41,6 +44,8 @@ public class MetaFinanceiraDTO {
         this.prazo = metaFinanceira.getPrazo();
         this.valor = metaFinanceira.getValor();
         this.statusMeta = metaFinanceira.getStatusMeta().getId();
+        this.conta = metaFinanceira.getConta().getIdConta();
+
     }
 
     public Long getIdMeta() {
@@ -81,6 +86,14 @@ public class MetaFinanceiraDTO {
 
     public void setStatusMeta(int statusMeta) {
         this.statusMeta = statusMeta;
+    }
+
+    public Long getConta() {
+        return conta;
+    }
+
+    public void setConta(Long conta) {
+        this.conta = conta;
     }
 
     @Override

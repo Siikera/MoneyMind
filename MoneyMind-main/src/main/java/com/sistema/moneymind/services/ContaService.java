@@ -72,11 +72,6 @@ public class ContaService {
         if(!banco.isPresent()){
             throw new DataIntegrityViolationException("Banco - " + dto.getBanco() + "não esta cadastrado");
         }
-
-        Optional<MetaFinanceira> metaFinanceira = metaRepo.findById(dto.getMetaFinanceira());
-        if(!metaFinanceira.isPresent()){
-            throw new DataIntegrityViolationException("Meta Financeira - " + dto.getMetaFinanceira() + "não esta cadastrado");
-        }
     }
 
     public Conta update(Long id, ContaDTO objDto){
@@ -91,6 +86,21 @@ public class ContaService {
         Conta obj = findbyId(id);
         contaRepo.deleteById(id);
     }
+
+    public List<ContaDTO> findByUsuario(Long idUsuario) {
+        return contaRepo.findByUsuario_IdUsuario(idUsuario)
+                .stream()
+                .map(ContaDTO::new)
+                .collect(Collectors.toList());
+    }
+
+    public Conta updateSaldo(Long id, Double novoSaldo) {
+        Conta conta = findbyId(id);
+        conta.setSaldo(novoSaldo);
+        return contaRepo.save(conta);
+    }
+
+
 
 
 

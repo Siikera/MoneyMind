@@ -1,16 +1,11 @@
 package com.sistema.moneymind.services;
 
 
-import com.sistema.moneymind.domains.Banco;
 import com.sistema.moneymind.domains.MetaFinanceira;
-import com.sistema.moneymind.domains.Usuario;
-import com.sistema.moneymind.domains.dtos.BancoDTO;
 import com.sistema.moneymind.domains.dtos.MetaFinanceiraDTO;
 import com.sistema.moneymind.repositories.MetaFinanceiraRepository;
-import com.sistema.moneymind.services.exceptions.DataIntegrityViolationException;
 import com.sistema.moneymind.services.exceptions.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.jpa.repository.query.Meta;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -24,7 +19,13 @@ public class MetaFinanceiraService {
     private MetaFinanceiraRepository metaRepo;
 
     public List<MetaFinanceiraDTO> findAll(){
-        return metaRepo.findAll().stream().map(obj -> new MetaFinanceiraDTO(obj)).collect(Collectors.toUnmodifiableList());
+    return metaRepo.findAll().stream().map(obj -> new MetaFinanceiraDTO(obj)).collect(Collectors.toUnmodifiableList());
+    }
+
+    public List<MetaFinanceiraDTO> findByConta(Long idConta){
+    return metaRepo.findByContaId(idConta).stream()
+        .map(obj -> new MetaFinanceiraDTO(obj))
+        .collect(Collectors.toUnmodifiableList());
     }
 
     public MetaFinanceira findbyId(Long id){
@@ -45,17 +46,38 @@ public class MetaFinanceiraService {
     }
 
     public MetaFinanceira update(Long id, MetaFinanceiraDTO objDto){
-        objDto.setIdMeta(id);
         MetaFinanceira oldObj = findbyId(id);
-        oldObj = new MetaFinanceira(objDto);
+        
+        // Atualiza apenas os campos fornecidos
+        if (objDto.getDescricaoMeta() != null) {
+            oldObj.setDescricaoMeta(objDto.getDescricaoMeta());
+        }
+        if (objDto.getPrazo() != null) {
+            oldObj.setPrazo(objDto.getPrazo());
+        }
+        if (objDto.getValor() != null) {
+            oldObj.setValor(objDto.getValor());
+        }
+        // Atualiza status usando o código direto
+        oldObj.setStatusMetaCode(objDto.getStatusMeta());
+        
+        // Atualiza conta se fornecida
+        if (objDto.getConta() != null) {
+            oldObj.getConta().setIdConta(objDto.getConta());
+        }
+        
         return metaRepo.save(oldObj);
+    }
+    
+    // Método específico para atualizar apenas o status
+    public MetaFinanceira updateStatus(Long id, Integer novoStatus){
+        MetaFinanceira meta = findbyId(id);
+        meta.setStatusMetaCode(novoStatus);
+        return metaRepo.save(meta);
     }
 
     public void delete(Long id){
-        MetaFinanceira obj = findbyId(id);
-        if(obj.getContas().size()>0){
-            throw new DataIntegrityViolationException("Meta financeira não pode ser excluido pois tem uma conta vinculado com ele");
-        }
+        findbyId(id); // Valida se existe antes de deletar
         metaRepo.deleteById(id);
     }
 

@@ -22,4 +22,7 @@ public interface FluxoFinanceiroRepository extends JpaRepository<FluxoFinanceiro
     @Query("SELECT f FROM FluxoFinanceiro f WHERE f.conta.idConta = :idConta AND YEAR(f.dataOperacao) = :ano AND MONTH(f.dataOperacao) = :mes")
     List<FluxoFinanceiro> findByContaAndAnoAndMes(@Param("idConta") Long idConta, @Param("ano") int ano, @Param("mes") int mes);
 
+    @Query("SELECT f FROM FluxoFinanceiro f WHERE f.conta.idConta = :idConta ORDER BY f.dataOperacao DESC")
+    List<FluxoFinanceiro> findByContaId(@Param("idConta") Long idConta);
+
 }

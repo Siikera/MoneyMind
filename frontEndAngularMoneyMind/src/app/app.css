@@ -1,0 +1,16 @@
+/* Ajustes de layout quando o menu lateral está visível */
+.content-wrapper.with-side-menu {
+	margin-left: 240px; /* largura do side-menu */
+}
+
+/* Evita que o conteúdo encoste nas bordas em telas grandes */
+.content-wrapper {
+	padding-left: 16px;
+	padding-right: 16px;
+	box-sizing: border-box;
+}
+
+/* Compensa a altura da navbar fixa */
+.has-fixed-navbar {
+	padding-top: 75px; /* mesma altura definida na navbar */
+}

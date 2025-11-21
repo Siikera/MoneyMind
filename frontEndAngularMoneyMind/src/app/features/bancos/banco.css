@@ -1,0 +1,167 @@
+.edit-input {
+  width: 100%;
+  padding: 6px 10px;
+  border: 1px solid #1DE782;
+  border-radius: 4px;
+  font-size: 1rem;
+}
+.tabela-wrapper {
+  margin-top: 24px;
+  width: 100%;
+  max-width: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.razoes-table {
+  width: 100%;
+  min-width: 600px;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin-top: 24px;
+  background: #fff;
+  box-shadow: 0 2px 12px rgba(0,0,0,0.10);
+  border-radius: 12px;
+  overflow: hidden;
+}
+.razoes-table th, .razoes-table td {
+  padding: 16px 20px;
+  text-align: left;
+}
+.razoes-table th {
+  background: linear-gradient(90deg, #1DE782 60%, #1de7c7 100%);
+  color: #10182B;
+  font-weight: bold;
+  border-bottom: 2px solid #eaeaea;
+  font-size: 1.1rem;
+}
+.razoes-table tr {
+  border-bottom: 1px solid #eaeaea;
+  transition: background 0.2s;
+}
+.razoes-table tr:last-child {
+  border-bottom: none;
+}
+.razoes-table tr:hover {
+  background: #f5f5f5;
+}
+.acao-btn {
+  margin-right: 16px;
+  padding: 8px 18px;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 4px;
+}
+.acao-btn.editar {
+  background: #ffe082;
+  color: #10182B;
+  margin-right: 16px;
+}
+.acao-btn.editar:hover {
+  background: #ffe9b3;
+}
+.acao-btn.excluir {
+  background: #e42929;
+  color: #fff;
+  margin-right: 0;
+}
+.acao-btn.excluir:hover {
+  background: #ff5c5c;
+}
+.acao-btn {
+  margin-right: 8px;
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.acao-btn.editar {
+  background: #ffe082;
+  color: #10182B;
+}
+.acao-btn.excluir {
+  background: #e42929;
+  color: #fff;
+}
+.acao-btn.cadastrar {
+  background: #1DE782;
+  color: #10182B;
+}
+.lista-btn {
+  display: block;
+  width: 100%;
+  margin: 24px 0 8px 0;
+  padding: 10px;
+  background: #10182B;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.lista-btn:hover {
+  background: #1DE782;
+  color: #10182B;
+}
+.cadastro-container {
+  max-width: 800px;
+  margin: 32px auto;
+  padding: 24px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.cadastro-container h2 {
+  margin-bottom: 16px;
+}
+.cadastro-container label {
+  display: block;
+  margin-bottom: 8px;
+}
+.cadastro-container input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+.cadastro-container button {
+  padding: 8px 16px;
+  background: #1DE782;
+  color: #10182B;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.cadastro-container .erro {
+  color: #e42929;
+  margin-top: 8px;
+}
+.cadastro-container .sucesso {
+  color: #1DE782;
+  margin-top: 8px;
+}
+
+.cadastro-container h3 {
+  margin-top: 32px;
+  font-size: 1.1rem;
+  color: #10182B;
+}
+.cadastro-container ul {
+  margin-top: 8px;
+  padding-left: 20px;
+}
+.cadastro-container li {
+  margin-bottom: 4px;
+  color: #333;
+}
+.cadastro-container .empty-list {
+  margin-top: 8px;
+  color: #888;
+}

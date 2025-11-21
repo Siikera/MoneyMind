@@ -37,7 +37,13 @@ public class FluxoFinanceiroService {
     private FluxoFinanceiroRepository fluxoRepo;
 
     public List<FluxoFinanceiroDTO> findAll() {
-        return fluxoRepo.findAll().stream().map(FluxoFinanceiroDTO::new).collect(Collectors.toList());
+    return fluxoRepo.findAll().stream().map(FluxoFinanceiroDTO::new).collect(Collectors.toList());
+    }
+
+    public List<FluxoFinanceiroDTO> findByConta(Long idConta) {
+    return fluxoRepo.findByContaId(idConta).stream()
+        .map(FluxoFinanceiroDTO::new)
+        .collect(Collectors.toList());
     }
 
     public FluxoFinanceiro findById(Long id) {

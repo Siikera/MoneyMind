@@ -1,4 +1,4 @@
-<div class="side-menu" [class.collapsed]="collapsed">
+<div *ngIf="hasSelectedConta" class="side-menu" [class.collapsed]="collapsed">
   <button class="collapse-btn" (click)="toggleMenu()">
     <span *ngIf="!collapsed">&laquo;</span>
     <span *ngIf="collapsed">&raquo;</span>
@@ -6,12 +6,12 @@
   <div *ngIf="!collapsed">
     <h3>Menu</h3>
     <ul>
-      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard</a></li>
+      <li><a routerLink="/dashboard" routerLinkActive="active">Dashboard Financeiro</a></li>
       <li><a routerLink="/" routerLinkActive="active">Inicio</a></li>
-      <li><a routerLink="/contas" routerLinkActive="active">Contas</a></li>
-      <li><a routerLink="/bancos" routerLinkActive="active">Bancos</a></li>
-      <li><a routerLink="/usuarios" routerLinkActive="active">Usuários</a></li>
-      <li><a href="#" (click)="logout()">Sair</a></li>
+  <li><a routerLink="/banco" routerLinkActive="active">Bancos</a></li>
+  <li><a routerLink="/pessoa-cadastro" routerLinkActive="active">Pessoas</a></li>
+  <li><a routerLink="/meta" routerLinkActive="active">Metas Financeiras</a></li>
+  <li><a href="#" (click)="logout()">Sair</a></li>
     </ul>
   </div>
    
