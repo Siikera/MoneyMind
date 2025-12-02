@@ -38,4 +38,5 @@ O **MoneyMind** é um sistema de gerenciamento financeiro pessoal desenvolvido p
 O objetivo do **MoneyMind** é fornecer uma ferramenta completa e organizada para auxiliar na **educação financeira**, permitindo que o usuário:  
 - Tenha controle sobre suas movimentações financeiras.  
 - Planeje metas de curto, médio e longo prazo.  
-- Acompanhe seus gastos por categoria e instituição bancária.  
+- Acompanhe seus gastos por categoria e instituição bancária.
+- Emissão de relatório mensal compeleta.
